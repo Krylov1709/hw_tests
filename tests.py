@@ -1,6 +1,6 @@
 import builtins
 import main
-# from yandex_disk import ya
+import yandex_disk
 import pytest
 import mock
 
@@ -30,7 +30,6 @@ fixture_get_doc_shelf = [
     ("10006", "2"),
     ("1006", None)
 ]
-
 
 
 @pytest.mark.parametrize("a, b", fixture_doc_owner_name)
@@ -67,12 +66,13 @@ def test_get_doc_shelf(a, b):
         assert result == b
 
 
-# fixture_create_folder = [
-#     ("Новый", "201"),
-#     ("Новый", "409")
-# ]
-#
-# # @pytest.mark.parametrize("a, b", fixture_create_folder)
-# # def test_create_folder():
-# #     result = ya.create_folder("Новый")
-# #     assert result == 201
+fixture_create_folder = [
+    ("Новый", 201),
+    ("Новый", 409)
+]
+
+
+@pytest.mark.parametrize("a, b", fixture_create_folder)
+def test_create_folder(a, b):
+    result = yandex_disk.create_folder(a)
+    assert result == b
